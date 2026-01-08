@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethan Chang — Systems & AI Engineer</title>
+    <meta name="description"
+        content="Portfolio of Ethan Chang. AI Research, LLM Interpretability, and High-Performance Software Engineering.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/src/style.css">
+</head>
+
+<body>
+    <div class="noise"></div>
+    <canvas id="entropy-canvas"></canvas>
+
+    <div class="app-container">
+        <header>
+            <h1 class="reveal-on-scroll">
+                <span class="gradient-text">Ethan Chang</span>
+            </h1>
+            <p class="reveal-on-scroll"
+                style="font-size: 1.5rem; color: var(--text-secondary); margin-top: 1rem; font-weight: 500;">
+                Bridging AI Research with Robust Systems Engineering.
+            </p>
+
+            <div class="terminal-mockup reveal-on-scroll">
+                <div class="terminal-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-content">
+                    <span class="terminal-line" id="terminal-text"></span><span class="cursor"></span>
+                </div>
+            </div>
+        </header>
+
+        <main class="bento-grid">
+            <div class="bento-item col-span-2 row-span-2 violet-accent reveal-on-scroll">
+                <h3><span style="color: var(--accent-violet);">✦</span> Pinned Projects</h3>
+                <div id="projects-list"></div>
+            </div>
+
+            <div class="bento-item col-span-2 blue-accent reveal-on-scroll">
+                <h3><span style="color: var(--accent-blue);">⚙</span> Technical Stack</h3>
+                <div id="skills-grid" class="pill-container"></div>
+            </div>
+
+            <div class="bento-item emerald-accent reveal-on-scroll">
+                <h3><span style="color: var(--accent-emerald);">⌬</span> Activities</h3>
+                <div id="activities-list" class="pill-container"></div>
+            </div>
+
+            <div class="bento-item amber-accent reveal-on-scroll">
+                <h3><span style="color: var(--accent-amber);">⚛</span> Interests</h3>
+                <div id="interests-list"></div>
+            </div>
+
+            <a href="https://github.com/ethanchang235" target="_blank" class="bento-item"
+                style="text-decoration: none; color: inherit; display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em;">
+                GITHUB_REPOS <span style="margin-left: 12px; color: var(--accent-blue);">↗</span>
+            </a>
+
+            <div class="bento-item"
+                style="display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em; cursor: pointer;">
+                ESTABLISH_CONNECTION
+            </div>
+        </main>
+
+        <footer
+            style="margin-top: 8rem; padding-bottom: 4rem; text-align: center; color: var(--text-muted); font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.1em;">
+            &copy; 2026 ETHAN_CHANG // ALL_RIGHTS_RESERVED
+        </footer>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+</body>
+
+</html>
