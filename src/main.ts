@@ -7,6 +7,18 @@ interface Project {
 
 const projects: Project[] = [
   {
+    title: "box-agentic-mesh",
+    description: "Middleware for AI agents with persistent memory and safe file staging via Box API.",
+    tags: ["TS", "Box API", "AI"],
+    link: "https://github.com/ethanchang235/box-agentic-mesh"
+  },
+  {
+    title: "alphagenome-sandbox",
+    description: "Exploring DNA variant effects on gene regulation using AlphaGenome API.",
+    tags: ["Genomics", "AI", "API"],
+    link: "https://github.com/ethanchang235/alphagenome-sandbox"
+  },
+  {
     title: "spaced-rep-study-assistant",
     description: "AI study assistant generating flashcards from notes via OpenAI.",
     tags: ["JS", "OpenAI"],
@@ -17,18 +29,6 @@ const projects: Project[] = [
     description: "Visualization of GPT-2 next-token prediction entropy.",
     tags: ["Interpretability", "Web"],
     link: "https://github.com/ethanchang235/llm-entropy-visual"
-  },
-  {
-    title: "goose",
-    description: "Extensible AI agent for code automation (Rust).",
-    tags: ["Rust", "AI Agent"],
-    link: "https://github.com/ethanchang235/goose"
-  },
-  {
-    title: "mnist-cnn-m1",
-    description: "PyTorch CNN optimized for Apple Silicon.",
-    tags: ["PyTorch", "ML"],
-    link: "https://github.com/ethanchang235/mnist-cnn-macbook-air-m1"
   }
 ];
 
