@@ -3,209 +3,163 @@ interface Project {
   description: string;
   tags: string[];
   link: string;
+  year: string;
 }
 
 const projects: Project[] = [
   {
-    title: "box-agentic-mesh",
+    title: "Box Agentic Mesh",
     description: "Middleware for AI agents with persistent memory and safe file staging via Box API.",
-    tags: ["TS", "Box API", "AI"],
-    link: "https://github.com/ethanchang235/box-agentic-mesh"
+    tags: ["Python", "Box API", "FastAPI", "MCP"],
+    link: "https://github.com/ethanchang235/box-agentic-mesh",
+    year: "2024"
   },
   {
-    title: "alphagenome-sandbox",
+    title: "AlphaGenome Sandbox",
     description: "Exploring DNA variant effects on gene regulation using AlphaGenome API.",
-    tags: ["Genomics", "AI", "API"],
-    link: "https://github.com/ethanchang235/alphagenome-sandbox"
+    tags: ["Python", "TypeScript", "React", "FastAPI", "D3.js"],
+    link: "https://github.com/ethanchang235/alphagenome-sandbox",
+    year: "2024"
   },
   {
-    title: "spaced-rep-study-assistant",
-    description: "AI study assistant generating flashcards from notes via OpenAI.",
-    tags: ["JS", "OpenAI"],
-    link: "https://github.com/ethanchang235/spaced-rep-study-assistant"
+    title: "Spaced Rep Study Assistant",
+    description: "AI study assistant generating flashcards from notes via OpenAI API.",
+    tags: ["Python", "Flask", "OpenAI API"],
+    link: "https://github.com/ethanchang235/spaced-rep-study-assistant",
+    year: "2024"
   },
   {
-    title: "llm-entropy-visual",
+    title: "LLM Entropy Visual",
     description: "Visualization of GPT-2 next-token prediction entropy.",
-    tags: ["Interpretability", "Web"],
-    link: "https://github.com/ethanchang235/llm-entropy-visual"
+    tags: ["Python", "Flask", "HuggingFace", "Plotly.js"],
+    link: "https://github.com/ethanchang235/llm-entropy-visual",
+    year: "2024"
   }
 ];
 
 const skills = {
-  languages: ["Java", "Python", "JavaScript", "C", "C#", "C++", "R", "MATLAB", "Kotlin", "TypeScript", "Swift", "SQL"],
-  frameworks: ["React", "Node.js", "Django", "Flutter", "Flask", "Spring Boot", "REST APIs"],
-  technologies: ["Bash", "Linux", "Docker", "Kubernetes", "Git", "Jenkins", "AWS", "GCP", "Azure", "Arduino"],
-  libraries: ["PyTorch", "TensorFlow", "CUDA", "OpenCV", "NumPy", "Pandas", "Scikit-learn"]
+  languages: ["Java", "Python", "JavaScript", "TypeScript", "C", "C++", "C#", "Kotlin", "Swift", "R", "SQL"],
+  frameworks: ["React", "Node.js", "Django", "Flask", "Spring Boot", "Flutter"],
+  ml: ["PyTorch", "TensorFlow", "CUDA", "OpenCV", "NumPy", "Pandas", "Scikit-learn"],
+  devops: ["Docker", "Kubernetes", "Git", "Jenkins", "AWS", "GCP", "Linux"]
 };
 
 const activities = ["Wisconsin Autonomous", "dotData", "Sports Analytics Club"];
-const interests = ["AI/ML", "RL", "Robotics", "Poker", "Financial Markets", "Epidemiology", "Open-source"];
+const interests = ["AI/ML", "Reinforcement Learning", "Robotics", "Poker", "Financial Markets", "Epidemiology", "Open-source"];
 
-function setupTerminal() {
-  const el = document.getElementById('terminal-text');
-  if (!el) return;
-  const command = "ethan.getProfile() --detailed";
-  let i = 0;
-
-  function type() {
-    if (!el) return;
-    if (i < command.length) {
-      el.textContent += command.charAt(i);
-      i++;
-      setTimeout(type, 50);
-    }
-  }
-  type();
+// Render Projects
+function renderProjects() {
+  const container = document.getElementById('projects-container');
+  if (!container) return;
+  
+  projects.forEach((p, index) => {
+    const card = document.createElement('article');
+    card.className = 'project-card';
+    card.innerHTML = `
+      <div class="project-header">
+        <span class="project-num">0${index + 1}</span>
+        <span class="project-year">${p.year}</span>
+      </div>
+      <h3 class="project-title">${p.title}</h3>
+      <p class="project-desc">${p.description}</p>
+      <div class="project-meta">
+        ${p.tags.map(t => `<span class="project-tag">${t}</span>`).join('')}
+      </div>
+    `;
+    card.onclick = () => window.open(p.link, '_blank');
+    container.appendChild(card);
+  });
 }
 
-function setupBento() {
-  const projectContainer = document.getElementById('projects-list');
-  if (projectContainer) {
-    projects.forEach(p => {
-      const div = document.createElement('div');
-      div.className = 'project-mini';
-      div.innerHTML = `
-        <h4 style="font-weight: 700;">${p.title}</h4>
-        <p style="font-size: 0.9rem; margin-bottom: 0.75rem;">${p.description}</p>
-        <div class="pill-container">
-          ${p.tags.map(t => `<span class="pill" style="font-size: 0.7rem;">${t}</span>`).join('')}
-        </div>
-      `;
-      div.onclick = () => window.open(p.link, '_blank');
-      projectContainer.appendChild(div);
-    });
-  }
-
-  const skillContainer = document.getElementById('skills-grid');
-  if (skillContainer) {
-    Object.values(skills).flat().forEach(s => {
-      const span = document.createElement('span');
-      span.className = 'pill';
-      span.textContent = s;
-      skillContainer.appendChild(span);
-    });
-  }
-
-  const activityContainer = document.getElementById('activities-list');
-  if (activityContainer) {
-    activities.forEach(a => {
-      const span = document.createElement('span');
-      span.className = 'pill';
-      span.textContent = a;
-      activityContainer.appendChild(span);
-    });
-  }
-
-  const interestContainer = document.getElementById('interests-list');
-  if (interestContainer) {
-    const colors = ['var(--accent-blue)', 'var(--accent-violet)', 'var(--accent-emerald)', 'var(--accent-amber)'];
-    interests.forEach((item, index) => {
-      const span = document.createElement('span');
-      span.className = 'interest-tag';
-      span.style.background = `rgba(255, 255, 255, 0.03)`;
-      span.style.border = `1px solid ${colors[index % colors.length]}`;
-      span.style.color = 'var(--text-primary)';
-      span.textContent = item;
-      interestContainer.appendChild(span);
-    });
-  }
+// Render Skills
+function renderSkills() {
+  const container = document.getElementById('skills-container');
+  if (!container) return;
+  
+  const categories = [
+    { title: 'Languages', items: skills.languages },
+    { title: 'Frameworks', items: skills.frameworks },
+    { title: 'ML & Data', items: skills.ml },
+    { title: 'DevOps', items: skills.devops }
+  ];
+  
+  categories.forEach(cat => {
+    const div = document.createElement('div');
+    div.className = 'skill-category';
+    div.innerHTML = `
+      <div class="skill-title">${cat.title}</div>
+      <ul class="skill-list">
+        ${cat.items.map(item => `<li class="skill-item">${item}</li>`).join('')}
+      </ul>
+    `;
+    container.appendChild(div);
+  });
 }
 
-function setupCanvas() {
-  const canvas = document.getElementById('entropy-canvas') as HTMLCanvasElement;
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  if (!ctx) return;
+// Render Info
+function renderInfo() {
+  const container = document.getElementById('info-container');
+  if (!container) return;
+  
+  // Activities
+  const activitiesBlock = document.createElement('div');
+  activitiesBlock.className = 'info-block';
+  activitiesBlock.innerHTML = `
+    <div class="info-title">Current Activities</div>
+    <ul class="info-list">
+      ${activities.map(a => `<li class="info-item">${a}</li>`).join('')}
+    </ul>
+  `;
+  container.appendChild(activitiesBlock);
+  
+  // Interests
+  const interestsBlock = document.createElement('div');
+  interestsBlock.className = 'info-block';
+  interestsBlock.innerHTML = `
+    <div class="info-title">Areas of Interest</div>
+    <ul class="info-list">
+      ${interests.map(i => `<li class="info-item">${i}</li>`).join('')}
+    </ul>
+  `;
+  container.appendChild(interestsBlock);
+  
+  // Location/Status
+  const statusBlock = document.createElement('div');
+  statusBlock.className = 'info-block';
+  statusBlock.innerHTML = `
+    <div class="info-title">Status</div>
+    <ul class="info-list">
+      <li class="info-item">Open to collaborations</li>
+      <li class="info-item">Building agent systems</li>
+      <li class="info-item">Exploring LLM interpretability</li>
+    </ul>
+  `;
+  container.appendChild(statusBlock);
+}
 
-  let w = window.innerWidth;
-  let h = window.innerHeight;
-  canvas.width = w;
-  canvas.height = h;
-
-  const particles: Array<{ x: number, y: number, size: number, vx: number, vy: number, c: string }> = [];
-  const palette = ['#3b82f6', '#8b5cf6', '#10b981', '#f43f5e'];
-
-  for (let i = 0; i < 80; i++) {
-    particles.push({
-      x: Math.random() * w,
-      y: Math.random() * h,
-      size: Math.random() * 2 + 0.5,
-      vx: (Math.random() - 0.5) * 0.3,
-      vy: (Math.random() - 0.5) * 0.3,
-      c: palette[Math.floor(Math.random() * palette.length)]
-    });
-  }
-
-  function frame() {
-    if (!ctx) return;
-    ctx.clearRect(0, 0, w, h);
-
-    ctx.lineWidth = 0.5;
-    for (let i = 0; i < particles.length; i++) {
-      const p1 = particles[i];
-      for (let j = i + 1; j < particles.length; j++) {
-        const p2 = particles[j];
-        const d = Math.hypot(p1.x - p2.x, p1.y - p2.y);
-        if (d < 180) {
-          ctx.beginPath();
-          ctx.strokeStyle = `rgba(255,255,255,${0.08 * (1 - d / 180)})`;
-          ctx.moveTo(p1.x, p1.y);
-          ctx.lineTo(p2.x, p2.y);
-          ctx.stroke();
+// Smooth scroll
+function setupSmoothScroll() {
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (this: HTMLAnchorElement, e: Event) {
+      e.preventDefault();
+      const href = this.getAttribute('href');
+      if (href) {
+        const target = document.querySelector(href);
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
         }
       }
-    }
-
-    particles.forEach(p => {
-      p.x += p.vx;
-      p.y += p.vy;
-      if (p.x < 0 || p.x > w) p.vx *= -1;
-      if (p.y < 0 || p.y > h) p.vy *= -1;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-      ctx.fillStyle = p.c;
-      ctx.globalAlpha = 0.3;
-      ctx.fill();
-    });
-    requestAnimationFrame(frame);
-  }
-
-  window.addEventListener('resize', () => {
-    w = window.innerWidth;
-    h = window.innerHeight;
-    canvas.width = w;
-    canvas.height = h;
-  });
-  frame();
-}
-
-function setupInteractions() {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('active');
-      }
-    });
-  }, { threshold: 0.1 });
-
-  document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
-
-  document.querySelectorAll('.bento-item').forEach(item => {
-    const el = item as HTMLElement;
-    el.addEventListener('mousemove', e => {
-      const rect = el.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      el.style.setProperty('--x', `${x}px`);
-      el.style.setProperty('--y', `${y}px`);
     });
   });
 }
 
+// Initialize
 document.addEventListener('DOMContentLoaded', () => {
-  setupTerminal();
-  setupBento();
-  setupCanvas();
-  setupInteractions();
+  renderProjects();
+  renderSkills();
+  renderInfo();
+  setupSmoothScroll();
 });
