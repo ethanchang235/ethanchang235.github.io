@@ -1,165 +1,113 @@
 interface Project {
   title: string;
-  description: string;
-  tags: string[];
-  link: string;
   year: string;
+  bullets: string[];
+  tags: string[];
+  href: string;
 }
 
 const projects: Project[] = [
   {
     title: "Box Agentic Mesh",
-    description: "Middleware for AI agents with persistent memory and safe file staging via Box API.",
-    tags: ["Python", "Box API", "FastAPI", "MCP"],
-    link: "https://github.com/ethanchang235/box-agentic-mesh",
-    year: "2024"
-  },
-  {
-    title: "AlphaGenome Sandbox",
-    description: "Exploring DNA variant effects on gene regulation using AlphaGenome API.",
-    tags: ["Python", "TypeScript", "React", "FastAPI", "D3.js"],
-    link: "https://github.com/ethanchang235/alphagenome-sandbox",
-    year: "2024"
+    year: "2025",
+    bullets: [
+      "Python middleware on the Box API giving AI agents memory and logs for multi-step planning",
+      "Staged file operations over MCP so reads and writes stay safe across sessions",
+    ],
+    tags: ["Python", "Box API", "MCP", "FastAPI"],
+    href: "https://github.com/ethanchang235/box-agentic-mesh",
   },
   {
     title: "Spaced Rep Study Assistant",
-    description: "AI study assistant generating flashcards from notes via OpenAI API.",
-    tags: ["Python", "Flask", "OpenAI API"],
-    link: "https://github.com/ethanchang235/spaced-rep-study-assistant",
-    year: "2024"
+    year: "2025",
+    bullets: [
+      "Built in the UW–Madison x OpenAI Summer AI Laboratory (SAIL)",
+      "Lecture notes in, flashcards out: Node.js + Flask app using the OpenAI API",
+    ],
+    tags: ["Node.js", "JavaScript", "Flask", "OpenAI API"],
+    href: "https://github.com/ethanchang235/spaced-rep-study-assistant",
   },
   {
     title: "LLM Entropy Visual",
-    description: "Visualization of GPT-2 next-token prediction entropy.",
+    year: "2024",
+    bullets: [
+      "Type a sentence, watch GPT-2's next-token distribution shift in real time",
+      "Built to make sampling and hallucination concrete instead of hand-wavy",
+    ],
     tags: ["Python", "Flask", "HuggingFace", "Plotly.js"],
-    link: "https://github.com/ethanchang235/llm-entropy-visual",
-    year: "2024"
-  }
+    href: "https://github.com/ethanchang235/llm-entropy-visual",
+  },
 ];
 
-const skills = {
-  languages: ["Java", "Python", "JavaScript", "TypeScript", "C", "C++", "C#", "Kotlin", "Swift", "R", "SQL"],
-  frameworks: ["React", "Node.js", "Django", "Flask", "Spring Boot", "Flutter"],
-  ml: ["PyTorch", "TensorFlow", "CUDA", "OpenCV", "NumPy", "Pandas", "Scikit-learn"],
-  devops: ["Docker", "Kubernetes", "Git", "Jenkins", "AWS", "GCP", "Linux"]
-};
+const skills: Array<[string, string[]]> = [
+  ["Languages", ["Java", "Python", "JavaScript", "C", "C#", "C++", "Swift", "Go", "HTML", "CSS", "SQL"]],
+  ["Frameworks & DBs", ["React", "Node.js", "Angular", "MySQL", "MongoDB", "PostgreSQL"]],
+  ["Infra & Tools", ["Git", "Linux", "Docker", "Kubernetes", "AWS", "Azure", "GCP", "Jenkins", "MCP", "Hadoop", "Spark", "Jira"]],
+  ["ML", ["PyTorch", "TensorFlow", "CUDA", "OpenCV"]],
+];
 
-const activities = ["Wisconsin Autonomous", "dotData", "Sports Analytics Club"];
-const interests = ["AI/ML", "Reinforcement Learning", "Robotics", "Poker", "Financial Markets", "Epidemiology", "Open-source"];
-
-// Render Projects
 function renderProjects() {
-  const container = document.getElementById('projects-container');
-  if (!container) return;
-  
-  projects.forEach((p, index) => {
-    const card = document.createElement('article');
-    card.className = 'project-card';
-    card.innerHTML = `
-      <div class="project-header">
-        <span class="project-num">0${index + 1}</span>
-        <span class="project-year">${p.year}</span>
+  const root = document.getElementById("work-list");
+  if (!root) return;
+  for (const p of projects) {
+    const li = document.createElement("li");
+    li.className = "work-row";
+    li.innerHTML = `
+      <span class="work-year">${p.year}</span>
+      <div>
+        <h3 class="work-title">${p.title}</h3>
+        <ul class="work-bullets">${p.bullets.map((b) => `<li>${b}</li>`).join("")}</ul>
+        <ul class="work-tags">${p.tags.map((t) => `<li>${t}</li>`).join("")}</ul>
       </div>
-      <h3 class="project-title">${p.title}</h3>
-      <p class="project-desc">${p.description}</p>
-      <div class="project-meta">
-        ${p.tags.map(t => `<span class="project-tag">${t}</span>`).join('')}
-      </div>
-    `;
-    card.onclick = () => window.open(p.link, '_blank');
-    container.appendChild(card);
-  });
+      <span class="work-arrow" aria-hidden="true">↗</span>
+      <a class="work-link" href="${p.href}" target="_blank" rel="noreferrer">
+        <span class="visually-hidden">${p.title} on GitHub</span>
+      </a>`;
+    root.appendChild(li);
+  }
 }
 
-// Render Skills
 function renderSkills() {
-  const container = document.getElementById('skills-container');
-  if (!container) return;
-  
-  const categories = [
-    { title: 'Languages', items: skills.languages },
-    { title: 'Frameworks', items: skills.frameworks },
-    { title: 'ML & Data', items: skills.ml },
-    { title: 'DevOps', items: skills.devops }
-  ];
-  
-  categories.forEach(cat => {
-    const div = document.createElement('div');
-    div.className = 'skill-category';
-    div.innerHTML = `
-      <div class="skill-title">${cat.title}</div>
-      <ul class="skill-list">
-        ${cat.items.map(item => `<li class="skill-item">${item}</li>`).join('')}
-      </ul>
-    `;
-    container.appendChild(div);
-  });
+  const root = document.getElementById("skills-list");
+  if (!root) return;
+  for (const [label, items] of skills) {
+    const row = document.createElement("div");
+    row.className = "skills-row";
+    row.innerHTML = `
+      <dt class="skills-label">${label}</dt>
+      <dd class="skills-items">${items.join(", ")}</dd>`;
+    root.appendChild(row);
+  }
 }
 
-// Render Info
-function renderInfo() {
-  const container = document.getElementById('info-container');
-  if (!container) return;
-  
-  // Activities
-  const activitiesBlock = document.createElement('div');
-  activitiesBlock.className = 'info-block';
-  activitiesBlock.innerHTML = `
-    <div class="info-title">Current Activities</div>
-    <ul class="info-list">
-      ${activities.map(a => `<li class="info-item">${a}</li>`).join('')}
-    </ul>
-  `;
-  container.appendChild(activitiesBlock);
-  
-  // Interests
-  const interestsBlock = document.createElement('div');
-  interestsBlock.className = 'info-block';
-  interestsBlock.innerHTML = `
-    <div class="info-title">Areas of Interest</div>
-    <ul class="info-list">
-      ${interests.map(i => `<li class="info-item">${i}</li>`).join('')}
-    </ul>
-  `;
-  container.appendChild(interestsBlock);
-  
-  // Location/Status
-  const statusBlock = document.createElement('div');
-  statusBlock.className = 'info-block';
-  statusBlock.innerHTML = `
-    <div class="info-title">Status</div>
-    <ul class="info-list">
-      <li class="info-item">Open to collaborations</li>
-      <li class="info-item">Building agent systems</li>
-      <li class="info-item">Exploring LLM interpretability</li>
-    </ul>
-  `;
-  container.appendChild(statusBlock);
-}
+function setupNav() {
+  const navLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>(".nav a, .menubar-nav a"));
+  if (!("IntersectionObserver" in window) || navLinks.length === 0) return;
 
-// Smooth scroll
-function setupSmoothScroll() {
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (this: HTMLAnchorElement, e: Event) {
-      e.preventDefault();
-      const href = this.getAttribute('href');
-      if (href) {
-        const target = document.querySelector(href);
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
+  const spy = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        const id = `#${entry.target.id}`;
+        navLinks.forEach((a) => a.classList.toggle("active", a.getAttribute("href") === id));
       }
-    });
-  });
+    },
+    { rootMargin: "-35% 0px -60% 0px" }
+  );
+  document.querySelectorAll<HTMLElement>("section[id]").forEach((s) => spy.observe(s));
 }
 
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {
-  renderProjects();
-  renderSkills();
-  renderInfo();
-  setupSmoothScroll();
-});
+function setupClock() {
+  const el = document.getElementById("sys-clock");
+  if (!el) return;
+  const tick = () => {
+    el.textContent = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  };
+  tick();
+  window.setInterval(tick, 20000);
+}
+
+renderProjects();
+renderSkills();
+setupNav();
+setupClock();
